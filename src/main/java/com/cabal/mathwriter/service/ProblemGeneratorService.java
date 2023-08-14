@@ -1,6 +1,7 @@
 package com.cabal.mathwriter.service;
 
 import com.cabal.mathwriter.pojo.MathJob;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +9,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class ProblemGeneratorService {
 
@@ -25,7 +28,17 @@ public class ProblemGeneratorService {
         XWPFDocument document = new XWPFDocument();
         setTitle(document, mj.getTitle());
 
-        for(int x=0; x<50; x++) {
+        String[] operators = mj.getOperators().split(",");
+
+        HashMap<String, String> operatorMap = new HashMap<>();
+
+        for(int x=0; x < operators.length-1; x++) {
+            operatorMap.put(operators[x], operators[x]);
+        }
+
+        log.info("OPERATORS {}", operatorMap);
+
+        for(int x=0; x < mj.getPages(); x++) {
             if(x<25) {
                 makeMathRow(document, "+");
             } else {

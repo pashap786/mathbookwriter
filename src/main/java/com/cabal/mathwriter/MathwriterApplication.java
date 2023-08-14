@@ -25,8 +25,7 @@ public class MathwriterApplication implements CommandLineRunner {
     public void run(String... args) {
         log.info("EXECUTING : command line runner");
         Scanner in = new Scanner(System.in);
-        String out = in.next();
-        log.info("hello {}", out);
+
 
         MathJob mj = new MathJob();
 
@@ -36,14 +35,14 @@ public class MathwriterApplication implements CommandLineRunner {
         mj.setOperators(in.next());
         log.info("What Is the title? ");
         mj.setTitle(in.next());
-
+        log.info("How many pages? ");
+        mj.setPages(Integer.parseInt(in.next()));
+        log.info("Max equation b value  a + b =c");
+        mj.setMaxNumber(Integer.parseInt(in.next()));
         log.info("MATH BOOK WRITING FOR {}", mj);
 
         problemGeneratorService.makeMathBook(mj);
 
-        for (int i = 0; i < args.length; ++i) {
-            log.info("args[{}]: {}", i, args[i]);
-        }
     }
 
    /* public static void main(String[] args) {
